@@ -51,8 +51,8 @@ namespace VacasWPF
             int newKey = context.Vacas.Max(v => v.id) + 1;
             Vaca newVaca = new Vaca(newKey, 
                 "Oviedo", 
-                new DateOnly(2008, 4, 2), 
-                new DateOnly(2008, 9, 21), 
+                new DateTime(2008, 4, 2), 
+                new DateTime(2008, 9, 21), 
                 123, 
                 87, 
                 "H",
@@ -66,5 +66,18 @@ namespace VacasWPF
             context.Vacas.Remove(dgVacas.SelectedItem as Vaca);
             context.SaveChanges();
         }
+
+        private void dgVacas_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                Vaca vacaGrid = e.Row.Item as Vaca;
+                if (vacaGrid != null)
+                {
+                    context.SaveChanges();
+                }
+            }
+        }
+    
     }
 }

@@ -7,7 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="dgVacas" ItemsSource="{Binding Vacas}" AutoGenerateColumns="True" Margin="0,0,0,202"/>
+        <DataGrid AutoGenerateColumns="False"  IsReadOnly="False" Name="dgVacas" ItemsSource="{Binding Vacas}" Margin="0,0,0,202" CellEditEnding="dgVacas_CellEditEnding" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding id}" />
+                <DataGridTextColumn Header="Municipio" Binding="{Binding nomMunicipio}" />
+                <DataGridTextColumn Header="FechaNac" Binding="{Binding f_nacim, StringFormat=\{0:dd/MM/yy\}}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style/>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="FechaDestete" Binding="{Binding f_destete}"/>
+                <DataGridTextColumn Header="Alzada" Binding="{Binding alzada}"/>
+                <DataGridTextColumn Header="Peso" Binding="{Binding peso}"/>
+                <DataGridTextColumn Header="Sexo" Binding="{Binding sexo}"/>
+                <DataGridTextColumn Header="Tipo" Binding="{Binding tipo}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Name="btnNueva" Content="Nueva vaca" HorizontalAlignment="Left" Margin="88,386,0,0" VerticalAlignment="Top" Click="btnNueva_Click"/>
         <Button Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="241,386,0,0" VerticalAlignment="Top" Click="btnEliminar_Click"/>
 
