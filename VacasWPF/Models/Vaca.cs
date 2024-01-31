@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace VacasWPF.Models
 {
-    public class Vaca : INotifyPropertyChanged, IEditableObject
+    public class Vaca : IEditableObject
     {
 
         #region Constructores
 
         public Vaca() { }
 
-        public Vaca(int id, string nomMunicipio, DateTime f_nacim, DateTime f_destete, int alzada, int peso, string sexo, string tipo)
+        public Vaca(int id, string nomMunicipio, DateOnly f_nacim, DateOnly f_destete, int alzada, int peso, string sexo, string tipo)
         {
             this.id = id;
-            _nomMunicipio = nomMunicipio;
-            _f_nacim = f_nacim;
-            _f_destete = f_destete;
-            _alzada = alzada;
-            _peso = peso;
-            _sexo = sexo;
-            _tipo = tipo;
+            this.nomMunicipio = nomMunicipio;
+            this.f_nacim = f_nacim;
+            this.f_destete = f_destete;
+            this.alzada = alzada;
+            this.peso = peso;
+            this.sexo = sexo;
+            this.tipo = tipo;
         }
 
 
@@ -36,57 +36,50 @@ namespace VacasWPF.Models
         public int id { get; set; }
         
         public string nomMunicipio
-        {
-            get { return _nomMunicipio; }
-            set { if (_nomMunicipio != value) 
-                {
-                    _nomMunicipio = value;
-                    OnPropertyChanged(nameof(nomMunicipio));
-                } 
-            }
-        }
+        { get; set; }
         [Format("dd/MM/yyyy")]
-        public DateTime f_nacim { get => _f_nacim; set => _f_nacim = value; }
+        public DateOnly f_nacim { get; set; }
         [Format("dd/MM/yyyy")]
-        public DateTime f_destete { get => _f_destete; set => _f_destete = value; }
-        public int alzada { get => _alzada; set => _alzada = value; }
-        public int peso { get => _peso; set => _peso = value; }
-        public string sexo { get => _sexo; set => _sexo = value; }
-        public string tipo { get => _tipo; set => _tipo = value; }
+        public DateOnly f_destete { get; set; }
+        public int alzada { get; set; }
+        public int peso { get; set; }
+        public string sexo { get; set; }
+        public string tipo { get; set; }
 
         #endregion
 
-        #region Variables miembro privadas
-        private string _nomMunicipio;
-        private DateTime _f_nacim;
-        private DateTime _f_destete;
-        private int _alzada;
-        private int _peso;
-        private string _sexo;
-        private string _tipo;
-
-
-
-        #endregion
-
+        
         #region Implementación de interfaces
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
         private string oldNomMunicipio;
-
+        private DateOnly oldFNacim;
+        private DateOnly oldFDestete;
+        private int oldAlzada;
+        private int oldPeso;
+        private string oldSexo;
+        private string oldTipo;
         public void BeginEdit()
         {
-            oldNomMunicipio = this._nomMunicipio;
+            oldNomMunicipio = this.nomMunicipio;
+            oldFDestete = this.f_destete;
+            oldAlzada = this.alzada;
+            oldFNacim = this.f_nacim;
+            oldPeso = this.peso;
+            oldSexo = this.sexo;
+            oldTipo = this.tipo;
+
 
         }
 
         public void CancelEdit()
         {
-            this._nomMunicipio = oldNomMunicipio;
+            this.nomMunicipio = oldNomMunicipio;
+            this.alzada = oldAlzada;
+            this.f_destete = oldFDestete;
+            this.f_nacim = oldFNacim;
+            this.peso = oldPeso;
+            this.sexo = oldSexo;
+            this.tipo = oldTipo;
         }
 
         public void EndEdit()
